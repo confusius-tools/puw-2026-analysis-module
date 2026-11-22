@@ -713,8 +713,8 @@ wheels = [
 
 [[package]]
 name = "confusius"
-version = "0.9.0"
-source = { registry = "https://pypi.org/simple" }
+version = "0.10.0.dev0"
+source = { git = "https://github.com/confusius-tools/confusius?rev=main#23902c8abf56cb236d481ec2e8b81611d122d2fa" }
 dependencies = [
     { name = "boto3" },
     { name = "brainglobe-atlasapi" },
@@ -743,10 +743,6 @@ dependencies = [
     { name = "xarray" },
     { name = "xarray", extra = ["accel"], marker = "python_full_version < '3.14' or platform_machine != 'x86_64' or sys_platform != 'darwin'" },
     { name = "zarr" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/52/ed/f8f64329ec3c9401a5c249ae108d901659c678e431718cc0fff76885dbfe/confusius-0.9.0.tar.gz", hash = "sha256:2a333bbe2573cefa8d5c3b5188db17063400fbc17f7b393bafc54912e02a9e86", size = 604307, upload-time = "2026-10-31T15:49:06.54Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/dc/37/3033c8d7abf77df8e59bfdf7e2d8d667170b3f92bc0a510564c8955da79c/confusius-0.9.0-py3-none-any.whl", hash = "sha256:78e2f02266b0db7ac98433c0d03c2f05f83c6b9e44ce0c9f18ed0d782330add6", size = 715624, upload-time = "2026-10-31T15:49:05.251Z" },
 ]
 
 [[package]]
@@ -3221,7 +3217,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "confusius", specifier = ">=0.9.0" },
+    { name = "confusius", git = "https://github.com/confusius-tools/confusius?rev=main" },
     { name = "marimo", specifier = ">=0.25.2" },
 ]
 

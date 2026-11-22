@@ -11,3 +11,6 @@ dependencies = [
 
 [tool.marimo.display]
 theme = "dark"
+
+[tool.uv.sources]
+confusius = { git = "https://github.com/confusius-tools/confusius", rev = "main" }
