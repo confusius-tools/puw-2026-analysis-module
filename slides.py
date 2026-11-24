@@ -634,6 +634,54 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md("""
+    # Data acquisition · Which route?
+
+    | Route | What you get | Trade-off |
+    | :-- | :-- | :-- |
+    | **Iconeus One** | Integrated acquisition and analysis | Plug & play; least flexible |
+    | **Verasonics + AUTC** | Research scanner + proprietary software and support | More configurable; vendor-specific software |
+    | **Verasonics + EffUSIve** | Research scanner + open-source software and community support | Most flexible; alpha, requires expertise |
+
+    **Choose by** flexibility, expertise, budget and experimental needs.
+
+    <small>Sources: [Iconeus](https://iconeus.com/iconeus-one/) · [AUTC](https://fusi-functional-ultrasound-imaging.com/services/) · [EffUSIve](https://github.com/confusius-tools/effusive)</small>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(Path, mo):
+    _photos = {
+        name: (
+            '<div style="height:22vh; display:flex; align-items:flex-end; '
+            'justify-content:center">'
+            + mo.image(Path("assets") / f"{name}.webp", height="20vh").text
+            + "</div>"
+        )
+        for name in (
+            "iconeus-one",
+            "verasonics-nxt",
+            "visualsonics-vevo-f2xc",
+            "us4us-us4r",
+            "opensonics-openexplorer",
+        )
+    }
+    mo.md(f"""
+    # Data acquisition · The scanners
+
+    | | | | | |
+    | :--: | :--: | :--: | :--: | :--: |
+    | {_photos['iconeus-one']} | {_photos['verasonics-nxt']} | {_photos['visualsonics-vevo-f2xc']} | {_photos['us4us-us4r']} | {_photos['opensonics-openexplorer']} |
+    | **[Iconeus One](https://iconeus.com/products/iconeus-one/)** | **[Verasonics Vantage NXT](https://verasonics.com/wp-content/uploads/2026/08/Vantage-NXT-Brochure-and-Specs-Aug-2026.pdf)** | **[VisualSonics Vevo F2xc](https://www.visualsonics.com/product/imaging-systems/vevo-f2xc)** | **[us4us us4R](https://us4us.eu/product/us4r/)** | **[OpenSonics OpenExplorer](https://opensonics.tech/ultrasound-products/)** |
+
+    A scanner is only **one part** of a fUSI setup: check probe compatibility, computing / fast storage, and the complete acquisition software pipeline.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
     # 2 · Hands-on pipeline
 
     ## From real data to interpretable results
