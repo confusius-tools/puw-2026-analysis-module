@@ -638,43 +638,74 @@ def _(mo):
 
     | Route | What you get | Trade-off |
     | :-- | :-- | :-- |
-    | **Iconeus One** | Integrated acquisition and analysis | Plug & play; least flexible |
+    | **Iconeus One** | Integrated acquisition and analysis | Plug & play; less sequence control |
+    | **Vevo F2xc + VADA** | General ultrasound research with configurable sequences and channel-data access | More acquisition control; fUSI needs validation |
     | **Verasonics + AUTC** | Research scanner + proprietary software and support | More configurable; vendor-specific software |
     | **Verasonics + EffUSIve** | Research scanner + open-source software and community support | Most flexible; alpha, requires expertise |
 
-    **Choose by** flexibility, expertise, budget and experimental needs.
-
-    <small>Sources: [Iconeus](https://iconeus.com/iconeus-one/) · [AUTC](https://fusi-functional-ultrasound-imaging.com/services/) · [EffUSIve](https://github.com/confusius-tools/effusive)</small>
+    **Choose by control, expertise, budget and experimental needs.**
     """)
     return
 
 
 @app.cell(hide_code=True)
 def _(Path, mo):
-    _photos = {
-        name: (
-            '<div style="height:22vh; display:flex; align-items:flex-end; '
-            'justify-content:center">'
-            + mo.image(Path("assets") / f"{name}.webp", height="20vh").text
-            + "</div>"
+    def _card(photo, brand, model):
+        image = mo.image(
+            Path("assets") / f"{photo}.webp",
+            alt=f"{brand} {model} scanner",
+            width="100%",
+            style={"display": "block", "margin": "0"},
+        ).text
+        return f"""
+        <div style="min-width:0; padding:.5rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c; text-align:center">
+          <div style="width:100%; overflow:hidden">{image}</div>
+          <div style="min-height:2.5em; margin-top:3px; line-height:1.05">
+            <span style="color:#9fb7bc; font-size:.8em">{brand}</span><br><strong style="font-size:clamp(.75em, 1.5vw, 1em); overflow-wrap:anywhere">{model}</strong>
+          </div>
+        </div>"""
+
+    cards = "".join(
+        _card(*scanner) for scanner in (
+            ("iconeus-one", "Iconeus", "Iconeus One"),
+            ("verasonics-nxt", "Verasonics", "Vantage NXT"),
+            ("visualsonics-vevo-f2xc", "VisualSonics", "Vevo F2xc"),
+            ("us4us-us4r", "us4us", "us4R"),
+            ("opensonics-openexplorer", "OpenSonics", "OpenExplorer"),
         )
-        for name in (
-            "iconeus-one",
-            "verasonics-nxt",
-            "visualsonics-vevo-f2xc",
-            "us4us-us4r",
-            "opensonics-openexplorer",
-        )
-    }
+    )
     mo.md(f"""
     # Data acquisition · The scanners
 
-    | | | | | |
-    | :--: | :--: | :--: | :--: | :--: |
-    | {_photos['iconeus-one']} | {_photos['verasonics-nxt']} | {_photos['visualsonics-vevo-f2xc']} | {_photos['us4us-us4r']} | {_photos['opensonics-openexplorer']} |
-    | **[Iconeus One](https://iconeus.com/products/iconeus-one/)** | **[Verasonics Vantage NXT](https://verasonics.com/wp-content/uploads/2026/08/Vantage-NXT-Brochure-and-Specs-Aug-2026.pdf)** | **[VisualSonics Vevo F2xc](https://www.visualsonics.com/product/imaging-systems/vevo-f2xc)** | **[us4us us4R](https://us4us.eu/product/us4r/)** | **[OpenSonics OpenExplorer](https://opensonics.tech/ultrasound-products/)** |
+    <div style="display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.5rem; margin:1.5rem 0">{cards}</div>
 
     A scanner is only **one part** of a fUSI setup: check probe compatibility, computing / fast storage, and the complete acquisition software pipeline.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Data acquisition · The software
+
+    <div style="display:flex; align-items:stretch; gap:.6rem; margin:1.5rem 0">
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>① Sequence</strong><br>Transmit &amp; receive</div>
+      <div style="align-self:center; color:#ffd43b">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>② Reconstruct</strong><br>Beamform + clutter filter</div>
+      <div style="align-self:center; color:#ffd43b">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>③ Monitor</strong><br>Live visualization</div>
+      <div style="align-self:center; color:#ffd43b">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>④ Record</strong><br>Save + synchronize</div>
+    </div>
+
+    | Scanner | Software route | fUSI workflow |
+    | :-- | :-- | :--: |
+    | Iconeus One | Iconeus, bundled | <span style="color:#3ad9a4">✓</span> |
+    | Verasonics | AUTC (proprietary) / EffUSIve (open-source, alpha) | <span style="color:#3ad9a4">✓</span> |
+    | VisualSonics Vevo F2xc | VisualSonics | <span style="color:#ffd43b">? Verify</span> |
+    | us4us us4R | Your own / third-party software | <span style="color:#ffd43b">? Verify</span> |
+    | OpenSonics OpenExplorer | Your own / third-party software | <span style="color:#ffd43b">? Verify</span> |
     """)
     return
 
