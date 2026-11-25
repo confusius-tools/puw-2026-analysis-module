@@ -659,7 +659,7 @@ def _(Path, mo):
             style={"display": "block", "margin": "0"},
         ).text
         return f"""
-        <div style="min-width:0; padding:.5rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c; text-align:center">
+        <div style="min-width:0; padding:.5rem; border:1px solid #2b3548; border-radius:12px; background:#111720; text-align:center">
           <div style="width:100%; overflow:hidden">{image}</div>
           <div style="min-height:2.5em; margin-top:3px; line-height:1.05">
             <span style="color:#9fb7bc; font-size:.8em">{brand}</span><br><strong style="font-size:clamp(.75em, 1.5vw, 1em); overflow-wrap:anywhere">{model}</strong>
@@ -691,13 +691,13 @@ def _(mo):
     # Data acquisition · The software
 
     <div style="display:flex; gap:.6rem; margin:1.5rem 0">
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>① Acquire</strong></div>
-      <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>② Reconstruct</strong></div>
-      <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>③ Monitor</strong></div>
-      <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>④ Store</strong></div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #e94b5f; border-radius:12px; background:#111720"><strong>① Acquire</strong></div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #e94b5f; border-radius:12px; background:#111720"><strong>② Reconstruct</strong></div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #e94b5f; border-radius:12px; background:#111720"><strong>③ Monitor</strong></div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #e94b5f; border-radius:12px; background:#111720"><strong>④ Store</strong></div>
     </div>
 
     | Scanner | Software | fUSI workflow |
@@ -719,8 +719,8 @@ def _(Path, mo):
     <div style="display:flex; align-items:center; gap:.8rem; margin:.5rem 0">
       <div style="flex:1; min-width:0">{mo.image(Path("assets/navigation-rodent-bps.webp"), width="100%", style={"margin":"0", "display":"block"}).text}</div>
       <div style="flex:1; min-width:0; display:grid; gap:.6rem">
-        <div style="padding:.7rem; border:1px solid #4b6269; border-radius:12px"><strong>BPS (mice)</strong><br>3D angiogram → vascular template / atlas → target 2D plane. Other setups may need manual positioning; check species/template availability.</div>
-        <div style="padding:.7rem; border:1px solid #4b6269; border-radius:12px"><strong>QC every fit</strong><br>Check vessels, correct or reject bad matches, log probe pose. Expert landmarks can beat unchecked automation for comparable 2D slices.</div>
+        <div style="padding:.7rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>BPS (mice)</strong><br>3D angiogram → vascular template / atlas → target 2D plane. Other setups may need manual positioning; check species/template availability.</div>
+        <div style="padding:.7rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>QC every fit</strong><br>Check vessels, correct or reject bad matches, log probe pose. Expert landmarks can beat unchecked automation for comparable 2D slices.</div>
       </div>
     </div>
 
@@ -737,9 +737,9 @@ def _(Path, mo):
     <div style="display:flex; align-items:center; gap:1.2rem; margin:1rem 0">
       <div style="flex:1; min-width:0">{mo.image(Path("assets/navigation-human-tracking.webp"), width="100%", style={"margin":"0", "display":"block"}).text}</div>
       <div style="flex:1; min-width:0; display:grid; gap:.5rem">
-        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">① Track probe · optical / EM</div>
-        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">② Calibrate markers ↔ 2D/3D US plane</div>
-        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">③ Register image to MRI / atlas</div>
+        <div style="padding:.6rem; border:1px solid #2b3548; border-radius:12px; background:#111720">① Track probe · optical / EM</div>
+        <div style="padding:.6rem; border:1px solid #2b3548; border-radius:12px; background:#111720">② Calibrate markers ↔ 2D/3D US plane</div>
+        <div style="padding:.6rem; border:1px solid #2b3548; border-radius:12px; background:#111720">③ Register image to MRI / atlas</div>
       </div>
     </div>
 
@@ -756,9 +756,9 @@ def _(mo):
     # Data acquisition · Before recording
 
     <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem">
-      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Biology &amp; access</strong><br>Species &amp; age · preparation / acoustic window · awake vs anaesthetised. Match conditions.</div>
-      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Where &amp; how often?</strong><br>Target regions · 2D plane(s) vs 3D · probe pose · temporal sampling &amp; duration.</div>
-      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Experimental plan</strong><br>Baseline &amp; controls · task/trial timing · randomise or counterbalance · enough independent animals.</div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Biology &amp; access</strong><br>Species &amp; age · preparation / acoustic window · awake vs anaesthetised. Match conditions.</div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Where &amp; how often?</strong><br>Target regions · 2D plane(s) vs 3D · probe pose · temporal sampling &amp; duration.</div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Experimental plan</strong><br>Baseline &amp; controls · task/trial timing · randomise or counterbalance · enough independent animals.</div>
     </div>
     """)
     return
@@ -770,8 +770,8 @@ def _(mo):
     # Data acquisition · During recording
 
     <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem">
-      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Sync the clocks</strong><br>Stimulus &amp; behaviour timestamps ↔ ultrasound time. Test triggers &amp; clock alignment before the study.</div>
-      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Keep the right data</strong><br>Power Doppler / IQ / RF (if supported) · storage capacity · reference angiogram · acquisition parameters &amp; metadata.</div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Sync the clocks</strong><br>Stimulus &amp; behaviour timestamps ↔ ultrasound time. Test triggers &amp; clock alignment before the study.</div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Keep the right data</strong><br>Power Doppler / IQ / RF (if supported) · storage capacity · reference angiogram · acquisition parameters &amp; metadata.</div>
     </div>
     """)
     return
