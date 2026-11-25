@@ -827,6 +827,26 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
+    # A live page: this slide needs the network.
+    mo.vstack(
+        [
+            mo.md("# ConfUSIus dataset collection"),
+            mo.Html(
+                '<iframe src="https://confusius-datasets.s3.amazonaws.com/index.html" '
+                'title="ConfUSIus dataset collection" '
+                # The height follows the width, so it follows the slide and not the
+                # window: the page never makes the slide scroll.
+                'style="width: 100%; aspect-ratio: 2.7; border: 0; border-radius: 8px; '
+                'background: white"></iframe>'
+            ),
+        ],
+        gap=1,
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
     mo.vstack(
         [
             mo.md("# Voxel space → physical space"),
