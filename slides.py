@@ -5,6 +5,7 @@ app = marimo.App(
     width="full",
     app_title="PUW 2026 — fUSI analysis & open-source tools",
     layout_file="layouts/slides.slides.json",
+    css_file="theme.css",
 )
 
 
@@ -689,23 +690,89 @@ def _(mo):
     mo.md("""
     # Data acquisition · The software
 
-    <div style="display:flex; align-items:stretch; gap:.6rem; margin:1.5rem 0">
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>① Sequence</strong><br>Transmit &amp; receive</div>
+    <div style="display:flex; gap:.6rem; margin:1.5rem 0">
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>① Acquire</strong></div>
       <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>② Reconstruct</strong><br>Beamform + clutter filter</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>② Reconstruct</strong></div>
       <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>③ Monitor</strong><br>Live visualization</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>③ Monitor</strong></div>
       <div style="align-self:center; color:#ffd43b">→</div>
-      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>④ Record</strong><br>Save + synchronize</div>
+      <div style="flex:1; min-width:0; padding:1rem; border:2px solid #4dd0e1; border-radius:12px"><strong>④ Store</strong></div>
     </div>
 
-    | Scanner | Software route | fUSI workflow |
+    | Scanner | Software | fUSI workflow |
     | :-- | :-- | :--: |
     | Iconeus One | Iconeus, bundled | <span style="color:#3ad9a4">✓</span> |
     | Verasonics | AUTC (proprietary) / EffUSIve (open-source, alpha) | <span style="color:#3ad9a4">✓</span> |
-    | VisualSonics Vevo F2xc | VisualSonics | <span style="color:#ffd43b">? Verify</span> |
-    | us4us us4R | Your own / third-party software | <span style="color:#ffd43b">? Verify</span> |
-    | OpenSonics OpenExplorer | Your own / third-party software | <span style="color:#ffd43b">? Verify</span> |
+    | VisualSonics Vevo F2xc | VisualSonics | <span style="color:#ffd43b">?</span> |
+    | us4us us4R | Your own / third-party software | <span style="color:#ffd43b">?</span> |
+    | OpenSonics OpenExplorer | Your own / third-party software | <span style="color:#ffd43b">?</span> |
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(Path, mo):
+    mo.md(f"""
+    # Rodent neuronavigation
+
+    <div style="display:flex; align-items:center; gap:.8rem; margin:.5rem 0">
+      <div style="flex:1; min-width:0">{mo.image(Path("assets/navigation-rodent-bps.webp"), width="100%", style={"margin":"0", "display":"block"}).text}</div>
+      <div style="flex:1; min-width:0; display:grid; gap:.6rem">
+        <div style="padding:.7rem; border:1px solid #4b6269; border-radius:12px"><strong>BPS (mice)</strong><br>3D angiogram → vascular template / atlas → target 2D plane. Other setups may need manual positioning; check species/template availability.</div>
+        <div style="padding:.7rem; border:1px solid #4b6269; border-radius:12px"><strong>QC every fit</strong><br>Check vessels, correct or reject bad matches, log probe pose. Expert landmarks can beat unchecked automation for comparable 2D slices.</div>
+      </div>
+    </div>
+
+    <small>Nouhoum et al. (2021), [Fig. 1](https://doi.org/10.1038/s41598-021-94764-7) · CC BY 4.0.</small>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(Path, mo):
+    mo.md(f"""
+    # Data acquisition · Human neuronavigation
+
+    <div style="display:flex; align-items:center; gap:1.2rem; margin:1rem 0">
+      <div style="flex:1; min-width:0">{mo.image(Path("assets/navigation-human-tracking.webp"), width="100%", style={"margin":"0", "display":"block"}).text}</div>
+      <div style="flex:1; min-width:0; display:grid; gap:.5rem">
+        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">① Track probe · optical / EM</div>
+        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">② Calibrate markers ↔ 2D/3D US plane</div>
+        <div style="padding:.6rem; border:1px solid #4b6269; border-radius:10px">③ Register image to MRI / atlas</div>
+      </div>
+    </div>
+
+    **In fUSI:** Brainlab (awake surgery, 2023) · custom tracked helmet (mobile, 2025). **Open route:** SlicerIGT + PLUS / OpenIGTLink.
+
+    <small>Soloukey et al. (2025), [Fig. 1B](https://pmc.ncbi.nlm.nih.gov/articles/PMC12175903/) · CC BY 4.0.</small>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Data acquisition · Before recording
+
+    <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem">
+      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Biology &amp; access</strong><br>Species &amp; age · preparation / acoustic window · awake vs anaesthetised. Match conditions.</div>
+      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Where &amp; how often?</strong><br>Target regions · 2D plane(s) vs 3D · probe pose · temporal sampling &amp; duration.</div>
+      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Experimental plan</strong><br>Baseline &amp; controls · task/trial timing · randomise or counterbalance · enough independent animals.</div>
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Data acquisition · During recording
+
+    <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem">
+      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Sync the clocks</strong><br>Stimulus &amp; behaviour timestamps ↔ ultrasound time. Test triggers &amp; clock alignment before the study.</div>
+      <div style="padding:1rem; border:1px solid #4b6269; border-radius:12px; background:#151a1c"><strong>Keep the right data</strong><br>Power Doppler / IQ / RF (if supported) · storage capacity · reference angiogram · acquisition parameters &amp; metadata.</div>
+    </div>
     """)
     return
 
@@ -766,8 +833,6 @@ def _(mo):
             mo.md("Some intro to physical space")
         ]
     )
-
-
     return
 
 
@@ -929,6 +994,248 @@ def _(atlas_png, fragment, mo, motion_animation, sessions_pngs):
         ],
         gap=2,
     )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Denoising · Overview
+
+    <div style="display:flex; gap:.6rem; margin:1.2rem 0">
+      <div style="flex:1; min-width:0; padding:.85rem; border:2px solid #e94b5f; border-radius:12px; background:#111720">
+        <strong>① Clutter filter</strong><br><span style="color:#9fb7bc; font-size:.82em">IQ → Power Doppler</span>
+      </div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:.85rem; border:2px solid #e94b5f; border-radius:12px; background:#111720">
+        <strong>② Scrubbing</strong><br><span style="color:#9fb7bc; font-size:.82em">Censor bursts</span>
+      </div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:.85rem; border:2px solid #e94b5f; border-radius:12px; background:#111720">
+        <strong>③ Frequency filter</strong><br><span style="color:#9fb7bc; font-size:.82em">Drift &amp; physiology</span>
+      </div>
+      <div style="align-self:center; color:#f5c2ca">→</div>
+      <div style="flex:1; min-width:0; padding:.85rem; border:2px solid #e94b5f; border-radius:12px; background:#111720">
+        <strong>④ Regression</strong><br><span style="color:#9fb7bc; font-size:.82em">Residual confounds</span>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem">
+      <div style="padding:.85rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Noise sources</strong><br>Tissue motion · acoustic flashes · heart / breathing · slow drift</div>
+      <div style="padding:.85rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Order matters</strong><br>Handle spikes first · filter confounds like signal <em>(Lindquist 2019)</em></div>
+      <div style="padding:.85rem; border:1px solid #2b3548; border-radius:12px; background:#111720"><strong>Context &amp; QC</strong><br>Task vs. rsFC · awake vs. anaesthetised · QC before &amp; after</div>
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Denoising · Clutter filtering
+
+    Raw IQ → Power Doppler: separate **blood flow** from **tissue echoes**.
+
+    | Approach | Mechanism | Trade-off |
+    | :-- | :-- | :-- |
+    | **Butterworth (high-pass)** | Doppler velocity | Useless alone in awake fUSI — combine with SVD |
+    | **Static SVD** | Spatiotemporal coherence, fixed rank | Simple; one cutoff for all frames |
+    | **Adaptive SVD** | Per-packet cutoff (e.g. constant-energy) + mask | Best motion robustness — no perfect heuristic yet |
+
+    <div style="margin-top:.9rem; color:#9fb7bc; font-size:.88em">
+      <strong style="color:#f5c2ca">Tools:</strong> IcoStudio / IcoLab · AUTC · EffUSIve · PyfUS &nbsp;<em>(requires raw IQ or scanner support)</em>
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(fig_png, mo, np, plt):
+    _rng = np.random.default_rng(7)
+    _fs = 2.5
+    _t = np.arange(0, 120, 1 / _fs)
+    _drift = 0.9 * np.sin(2 * np.pi * 0.004 * _t)
+    _neuro = sum(
+        _rng.uniform(0.3, 0.7) * np.sin(2 * np.pi * _f * _t + _rng.uniform(0, 2 * np.pi))
+        for _f in (0.025, 0.045, 0.07)
+    )
+    _physio = 1.4 * np.sin(2 * np.pi * 0.65 * _t) + 1.1 * np.sin(2 * np.pi * 1.1 * _t)
+    _sig = _drift + _neuro + _physio + _rng.normal(0, 0.25, len(_t))
+    _freqs = np.fft.rfftfreq(len(_sig), d=1 / _fs)
+    _mag = np.abs(np.fft.rfft(_sig))
+
+    _fig, _ax = plt.subplots(figsize=(5.6, 3.4))
+    _ax.set_facecolor("none")
+    _ax.plot(_freqs, _mag, color="#3ad9a4", lw=1.8)
+    _ax.axvspan(0, 0.01, color="#e94b5f", alpha=0.45, label="Drift (<0.01 Hz)")
+    _ax.axvspan(0.1, _fs / 2, color="#f0b429", alpha=0.16, label="High-freq (>0.1 Hz)")
+    _ax.axvline(0.01, color="#e94b5f", ls="--", lw=1.2)
+    _ax.axvline(0.1, color="#f0b429", ls="--", lw=1.2)
+    _ax.set_xlim(0, _fs / 2)
+    _ax.set_ylim(0, _mag.max() * 1.12)
+    _ax.set_xlabel("Frequency (Hz)", color="#c9d1d9")
+    _ax.set_ylabel("Magnitude", color="#c9d1d9")
+    _ax.tick_params(colors="#9fb7bc")
+    for _s in ("bottom", "left"):
+        _ax.spines[_s].set_color("#4b5563")
+    _ax.spines[["top", "right"]].set_visible(False)
+    _ax.legend(frameon=False, fontsize=11, loc="upper right", labelcolor="#f8f9fb")
+    _fig.tight_layout()
+    _spec_png = fig_png(_fig)
+
+    mo.md(f"""
+    # Denoising · Frequency filtering
+
+    <div style="display:flex; align-items:center; gap:1.3rem; margin:.8rem 0">
+      <div style="flex:1.15; min-width:0">{mo.image(_spec_png, width="100%", style={"margin":"0", "display":"block"}).text}</div>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:.65rem">
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>High-pass (~0.01 Hz)</strong><br>Cuts slow drifts; keeps broadband signal.
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Band-pass (0.01–0.1 Hz)</strong><br>Cuts physiology; low-pass can smear motion spikes.
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Watch out</strong><br>Zero-phase · keep task frequencies · mind aliasing.
+        </div>
+      </div>
+    </div>
+
+    <div style="color:#9fb7bc; font-size:.86em">
+      <strong style="color:#f5c2ca">Tools:</strong> ConfUSIus · Nilearn · SciPy · IcoStudio / IcoLab
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(fig_png, mo, np, plt):
+    _rng = np.random.default_rng(12)
+    _t = np.linspace(0, 120, 300)
+    _clean = 3.2 * np.sin(2 * np.pi * 0.035 * _t) + 1.8 * np.cos(2 * np.pi * 0.06 * _t) + _rng.normal(0, 0.9, len(_t))
+    _confound = (
+        18.0 * np.exp(-0.5 * ((_t - 34) / 2.2) ** 2)
+        + 24.0 * np.exp(-0.5 * ((_t - 82) / 2.8) ** 2)
+        + 4.5 * np.sin(2 * np.pi * 0.008 * _t)
+    )
+    _raw = _clean + _confound
+
+    _fig, _ax = plt.subplots(figsize=(5.6, 3.4))
+    _ax.set_facecolor("none")
+    _ax.plot(_t, _raw, color="#e94b5f", lw=1.6, alpha=0.9, label="Before regression")
+    _ax.plot(_t, _clean, color="#3ad9a4", lw=1.8, label="After regression")
+    _ax.fill_between(_t, _clean, _raw, color="#e94b5f", alpha=0.18, label="Removed confounds")
+    _ax.set_xlim(0, 120)
+    _ax.set_xlabel("Time (s)", color="#c9d1d9")
+    _ax.set_ylabel("Signal (a.u.)", color="#c9d1d9")
+    _ax.tick_params(colors="#9fb7bc")
+    for _s in ("bottom", "left"):
+        _ax.spines[_s].set_color("#4b5563")
+    _ax.spines[["top", "right"]].set_visible(False)
+    _ax.legend(frameon=False, fontsize=11, loc="upper left", labelcolor="#f8f9fb")
+    _fig.tight_layout()
+    _reg_png = fig_png(_fig)
+
+    mo.md(f"""
+    # Denoising · Confound regression
+
+    <div style="display:flex; align-items:center; gap:1.3rem; margin:.8rem 0">
+      <div style="flex:1.15; min-width:0">{mo.image(_reg_png, width="100%", style={"margin":"0", "display":"block"}).text}</div>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:.65rem">
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Global Signal (GSR)</strong><br>Brain mean; shifts correlations, weak in awake fUSI.
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #e94b5f; border-radius:12px; background:#111720">
+          <strong>CompCor (aCompCor / tCompCor)</strong><br>Noise-ROI PCs; <strong>aCompCor</strong> leads in awake benchmarks.
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Motion &amp; physiology</strong><br>Registration params · tissue velocity · cardiac / resp.
+        </div>
+      </div>
+    </div>
+
+    <div style="color:#9fb7bc; font-size:.86em">
+      <strong style="color:#f5c2ca">Tools:</strong> ConfUSIus · Nilearn · IcoStudio / IcoLab &nbsp;<em>(task fUSI: include confounds in the GLM)</em>
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(fig_png, mo, np, plt):
+    _rng = np.random.default_rng(42)
+    _t = np.linspace(0, 120, 300)
+    _sig = 3.0 * np.sin(2 * np.pi * 0.03 * _t) + _rng.normal(0, 2.0, len(_t))
+    for _center, _amp in ((32, 34), (78, 42), (83, 28)):
+        _sig += _amp * np.exp(-0.5 * ((_t - _center) / 1.4) ** 2)
+    _thresh = 15.0
+    _bad = _sig > _thresh
+
+    _fig, _ax = plt.subplots(figsize=(5.6, 3.4))
+    _ax.set_facecolor("none")
+    _ax.plot(_t, _sig, color="#3ad9a4", lw=1.6, label="Signal / QC metric")
+    _ax.axhline(_thresh, color="#f5c2ca", ls="--", lw=1.3, label="Threshold")
+    _ax.fill_between(_t, -10, 55, where=_bad, color="#e94b5f", alpha=0.32, label="Censored frames")
+    _ax.set_xlim(0, 120)
+    _ax.set_ylim(-10, 55)
+    _ax.set_xlabel("Time (s)", color="#c9d1d9")
+    _ax.set_ylabel("Relative CBV (%)", color="#c9d1d9")
+    _ax.tick_params(colors="#9fb7bc")
+    for _s in ("bottom", "left"):
+        _ax.spines[_s].set_color("#4b5563")
+    _ax.spines[["top", "right"]].set_visible(False)
+    _ax.legend(frameon=False, fontsize=11, loc="upper left", labelcolor="#f8f9fb")
+    _fig.tight_layout()
+    _scrub_png = fig_png(_fig)
+
+    mo.md(f"""
+    # Denoising · Scrubbing
+
+    <div style="display:flex; align-items:center; gap:1.3rem; margin:.8rem 0">
+      <div style="flex:1.15; min-width:0">{mo.image(_scrub_png, width="100%", style={"margin":"0", "display":"block"}).text}</div>
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:.65rem">
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Last-resort censoring</strong><br>Drop frames with residual motion spikes.
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+          <strong>Detection metrics</strong><br>rDVARS · rGS · FD · tissue velocity (GV).
+        </div>
+        <div style="padding:.75rem .9rem; border:1px solid #e94b5f; border-radius:12px; background:#111720">
+          <strong>Often optional</strong><br>Adaptive SVD + aCompCor lets you keep more data.
+        </div>
+      </div>
+    </div>
+
+    <div style="color:#9fb7bc; font-size:.86em">
+      <strong style="color:#f5c2ca">Tools:</strong> ConfUSIus · Nilearn · IcoStudio / IcoLab
+    </div>
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md("""
+    # Denoising · Software
+
+    <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.9rem; margin:1.3rem 0">
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+        <strong>IcoStudio / IcoLab</strong><br><br>
+        Built-in, curated preprocessing.<br>
+        <span style="color:#9fb7bc; font-size:.88em">Proprietary; pipeline not documented online.</span>
+      </div>
+      <div style="padding:1rem; border:1px solid #2b3548; border-radius:12px; background:#111720">
+        <strong>Nilearn</strong><br><br>
+        fMRI standard adapted to fUSI in the literature.<br>
+        <span style="color:#9fb7bc; font-size:.88em">Lindquist et al. order; some defaults fit fMRI better than fUSI.</span>
+      </div>
+      <div style="padding:1rem; border:2px solid #e94b5f; border-radius:12px; background:#111720">
+        <strong>ConfUSIus</strong><br><br>
+        Adapts Nilearn’s pipeline for fUSI (Lindquist et al.).<br>
+        <span style="color:#f5c2ca; font-size:.88em">Fixes fUSI pitfalls (e.g. long cubic-spline interpolations).</span>
+      </div>
+    </div>
+    """)
     return
 
 

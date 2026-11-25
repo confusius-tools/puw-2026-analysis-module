@@ -1,0 +1,84 @@
+/* ConfUSIus dark-mode theme for PUW 2026 marimo slides */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root,
+.dark {
+  --marimo-heading-font: "Space Grotesk", sans-serif;
+  --background: #090c10;
+  --foreground: #f8f9fb;
+  --card: #111720;
+  --card-foreground: #f8f9fb;
+  --popover: #111720;
+  --popover-foreground: #f8f9fb;
+  --muted: #111720;
+  --muted-foreground: #9fb7bc;
+  --accent: #1a2030;
+  --accent-foreground: #f8f9fb;
+  --border: #2b3548;
+  --primary: #e94b5f;
+  --primary-foreground: #f8f9fb;
+}
+
+body,
+.reveal-viewport,
+.reveal,
+.reveal .slides {
+  background-color: #090c10 !important;
+  color: #f8f9fb;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  font-family: "Space Grotesk", sans-serif;
+  color: #f8f9fb;
+}
+
+.reveal a,
+.markdown a {
+  color: #e94b5f;
+}
+
+.reveal .progress span {
+  background: #e94b5f !important;
+}
+
+.reveal .controls {
+  color: #e94b5f !important;
+}
+
+/* Clean ConfUSIus dark-mode tables (override marimo's default odd/even row tints) */
+.markdown table,
+.reveal table {
+  border-collapse: collapse;
+  background-color: transparent !important;
+}
+
+.markdown table thead tr,
+.reveal table thead tr {
+  background-color: transparent !important;
+}
+
+.markdown table tbody tr:nth-child(odd),
+.reveal table tbody tr:nth-child(odd) {
+  background-color: #0d121a !important;
+}
+
+.markdown table tbody tr:nth-child(even),
+.reveal table tbody tr:nth-child(even) {
+  background-color: #141b26 !important;
+}
+
+.markdown table th,
+.reveal table th {
+  border-bottom: 1px solid #2b3548 !important;
+  color: #f8f9fb;
+}
+
+.markdown table td,
+.reveal table td {
+  border-color: #1a2030 !important;
+}

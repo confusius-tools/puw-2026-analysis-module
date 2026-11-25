@@ -9,3 +9,8 @@ Photos are from manufacturer pages and remain their owners' copyrighted material
 - `opensonics-openexplorer.webp`: OpenExplorer product image from [OpenSonics](https://opensonics.tech/ultrasound-products/).
 
 Images are resized or top-cropped to equal 4:3 slide tiles; original photographs and trademarks belong to the manufacturers.
+
+## Neuronavigation figures
+
+- `navigation-rodent-bps.webp`: resized full Figure 1, Nouhoum et al., [Scientific Reports (2021)](https://doi.org/10.1038/s41598-021-94764-7), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- `navigation-human-tracking.webp`: cropped panel B of Figure 1, Soloukey et al., [Science Advances (2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12175903/), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
