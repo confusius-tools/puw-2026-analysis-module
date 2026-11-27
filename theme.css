@@ -50,6 +50,49 @@ body,
   color: #e94b5f !important;
 }
 
+/* Each slide is a size container: `cqh` is 1% of the slide height, while `vh` is 1% of
+   the window height. Size pictures in `cqh` so they fit the slide in any window. */
+.reveal .slides section {
+  container-type: size;
+}
+
+/* Slide numbers, as "current / total". marimo does not turn on the slide numbers of
+   reveal.js, so CSS counters fill the empty number box that reveal.js leaves in the
+   deck. reveal.js gives the class `past` to every slide before the current one.
+   ponytail: this counts top-level slides. Sub-slides in a vertical stack would share
+   one number: count `section:not(.stack)` if the deck gets some. */
+.reveal {
+  counter-reset: slide-count 0 slide-current 1;
+}
+
+.reveal .slides > section {
+  counter-increment: slide-count;
+}
+
+.reveal .slides > section.past {
+  counter-increment: slide-count slide-current;
+}
+
+.reveal .slide-number {
+  display: block !important;
+  position: absolute;
+  z-index: 31;
+  left: 1.2rem;
+  right: auto;
+  bottom: 1rem;
+  padding: 0;
+  background: none;
+  color: #9fb7bc;
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .slide-number::before {
+  content: counter(slide-current) " / " counter(slide-count);
+}
+
 /* Clean ConfUSIus dark-mode tables (override marimo's default odd/even row tints) */
 .markdown table,
 .reveal table {

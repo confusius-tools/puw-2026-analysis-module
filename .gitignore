@@ -11,3 +11,6 @@ wheels/
 
 # Marimo session state (keep layouts/ tracked)
 __marimo__/
+
+# Simulated datasets, made again by slides.py
+data/
